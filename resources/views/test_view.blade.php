@@ -80,32 +80,7 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    てすと
-                </div>
-
-                <div class="links">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>USER_NAME</th>
-                                <th>EMAIL</th>
-                                <th>PASSWORD</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach ($XYZ as $Z)
-                            <tr>
-                                <td>{{ $Z->id }}</td>
-                                <td>{{ $Z->user_name }}</td>
-                                <td>{{ $Z->email }}</td>
-                                <td>{{ $Z->password }}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                aaa
             </div>
         </div>
     </body>
