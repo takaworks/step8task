@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'test_users',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'test_users',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'test_users',
             'hash' => false,
         ],
     ],
@@ -71,6 +71,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'test_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\TestUser::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -95,6 +100,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'test_users' => [
+            'provider' => 'test_users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
