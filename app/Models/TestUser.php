@@ -4,6 +4,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class TestUser extends Authenticatable
 {
@@ -35,4 +36,11 @@ class TestUser extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getProductList() {
+        // articlesテーブルからデータを取得
+        $hoge = DB::table('test_products')->get();
+
+        return $hoge;
+    }
 }

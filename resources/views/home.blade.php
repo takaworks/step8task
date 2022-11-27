@@ -12,6 +12,9 @@
                             document.getElementById('logout-form').submit();">
                 ログアウト
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+            </form>
         </header>
 
         <main>
@@ -39,57 +42,45 @@
             </div>
 
             <div class="show1">
-                <h2>検索結果</h2>
-                <ul>
-                    <div class="flexbox">
-                        <div class="boxA">
-                            <li>
-                                <img src="https://dummyimage.com/400x400/000/fff" alt="商品画像" class="iamge">
-                            </li>
-                        </div>
-
-                        <div class="boxB">
-                            <li class="input_table">
-                                id<br>
-                                <input type="text" class="inputsize" name="product_id_output">
-                            </li>
-
-                            <li class="input_table">
-                                商品名<br>
-                                <input type="text" class="inputsize" name="product_name_output">
-                            </li>
-
-                            <li class="input_table">
-                                価格<br>
-                                <input type="text" class="inputsize" name="product_price_output">
-                            </li>
-
-                            <li class="input_table">
-                                在庫数<br>
-                                <input type="text" class="inputsize" name="product_stock_output">
-                            </li>
-
-                            <li class="input_table">
-                                商品名<br>
-                                <input type="text" class="inputsize" name="company_name_output">
-                            </li>
-
-                            <li class="input_table">
-                                <button type="button" class="inputsize" name="btn_show_detail">詳細表示</button><br>
-                            </li>
-
-                            <li class="input_table">
-                                <button type="button" class="inputsize alart_cfg" name="btn_delete">削除</button>
-                            </li>
-                        </div>
-                    </div>
-                </ul>
+                <h2>商品一覧</h2>
+                <table class="show3">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>イメージパス</th>
+                            <th>商品名</th>
+                            <th>価格</th>
+                            <th>在庫数</th>
+                            <th>メーカー名</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($data as $val)
+                        <tr>
+                            <td>{{$val->id}}</td>
+                            <td><img src="{{$val->img_path}}"></td>
+                            <td>{{$val->product_name}}</td>
+                            <td>{{$val->price}}</td>
+                            <td>{{$val->stock}}</td>
+                            <td>{{$val->company_id}}</td>
+                            <td>
+                                <button type="button" class="" name="btn_show_detail">詳細表示</button>
+                            </td>
+                            <td>
+                                <button type="button" class="alart_cfg" name="btn_detele_productdata">削除</button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
 
             <div>
                 <button type="button" class="show2" name="btn_add_product">商品追加</button>
             </div>
-        </main>
 
+        </main>
     </body>
 </html>

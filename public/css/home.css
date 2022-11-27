@@ -8,7 +8,7 @@
 .show1{
     margin: var(--spacevalue);
     padding: var(--spacevalue);
-    background-color: rgb(199, 199, 199);
+    background-color: rgb(220, 220, 220);
     padding-top: 0px;
     border-radius: 10px;
 }
@@ -19,14 +19,6 @@
     margin-top: 30px;
 }
 
-.input_table {
-    padding-right: var(--spacevalue);
-    padding-left: var(--spacevalue);
-    margin-right: var(--spacevalue);
-    margin-left: var(--spacevalue);
-    
-    width: auto;
-}
 
 h2{
     margin-bottom: 0px;
@@ -36,10 +28,6 @@ h2{
     width: var(--tboxw);
     height: var(--tboxh);
     box-sizing:border-box;
-}
-
-.input_table td {
-    padding: 5px;
 }
 
 .alart_cfg {
@@ -57,20 +45,17 @@ li{
     padding-right: var(--spacevalue);
 }
 
-.flexbox {
-    display: flex;
-    display: -ms-flexbox;
-    padding: var(--spacevalue);
+table {
+    border-collapse: collapse;
+    /* border-spacing: 0px; */
+    width: 100%;
 }
 
-.boxA, .boxB {
-    text-align: left;
+table th ,td {
+    border-spacing: 0px;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
 }
-
-.boxA {
-    flex: 1;
-}
-
-.boxB {
-    flex: 2;
-}
+  
+  
