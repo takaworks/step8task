@@ -19,23 +19,26 @@
 
         <main>
             <div class="show1">
-                <form action="" method="post">
+                <form action="home.blade.php" method="post">
                     <h2>商品検索</h2>
                     <ul>
                         <li>
                             商品名<br>
-                            <input type="text" class="inputsize" name="product_name_input">
+                            <input type="text" class="inputsize" name="input_product_name">
                         </li>
 
                         <li>
                             企業名<br>
-                            <select class="inputsize" name="company_name_input">
+                            <select class="inputsize" name="input_company_name">
                                 <option hidden>-- 選択してください --</option>
+                                @foreach ($data as $val)
+                                    <option>{{$val->company_name}}</option>
+                                @endforeach
                             </select>
                         </li>
 
                         <li>
-                            <button type="button" class="inputsize" name="btn_add_product">検索</button>
+                            <button type="submit" class="inputsize" name="btn_search_product">検索</button>
                         </li>
                     </ul>
                 </form> 
@@ -64,7 +67,7 @@
                             <td>{{$val->product_name}}</td>
                             <td>{{$val->price}}</td>
                             <td>{{$val->stock}}</td>
-                            <td>{{$val->company_id}}</td>
+                            <td>{{$val->company_name}}</td>
                             <td>
                                 <button type="button" class="" name="btn_show_detail">詳細表示</button>
                             </td>

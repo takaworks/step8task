@@ -37,10 +37,22 @@ class TestUser extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // test_productsテーブルからデータを取得
     public function getProductList() {
-        // articlesテーブルからデータを取得
-        $hoge = DB::table('test_products')->get();
+        // productsテーブルとcompaniesを連結
+        // productsのcompany_idをcompaniesのcompany_nameとする
+        $hoge = DB::table('test_products')
+        ->select('test_products.id',
+                'test_products.img_path',
+                'test_products.product_name',
+                'test_products.price',
+                'test_products.stock',
+                'test_companies.company_name as company_name')
+
+        ->join('test_companies','test_products.company_id','=','test_companies.id')
+        ->get();
 
         return $hoge;
     }
+
 }
