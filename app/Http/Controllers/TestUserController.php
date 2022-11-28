@@ -25,9 +25,11 @@ class TestUserController extends Controller
     public function index()
     {
         // インスタンス生成
-        $model = new TestUser();
-        $data = $model->getProductList();
+        $hoge1 = new TestUser();
+        $hoge2 = new TestUser();
+        $productlist = $hoge1->getProductList();
+        $companylist = $hoge2->getCompanyList();
 
-        return view('home', ['data' => $data]);
+        return view('home', ['productlist' => $productlist], ['companylist' => $companylist]);
     }
 }

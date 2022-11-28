@@ -39,9 +39,10 @@ class TestUser extends Authenticatable
 
     // test_productsテーブルからデータを取得
     public function getProductList() {
+
         // productsテーブルとcompaniesを連結
         // productsのcompany_idをcompaniesのcompany_nameとする
-        $hoge = DB::table('test_products')
+        $data = DB::table('test_products')
         ->select('test_products.id',
                 'test_products.img_path',
                 'test_products.product_name',
@@ -52,7 +53,14 @@ class TestUser extends Authenticatable
         ->join('test_companies','test_products.company_id','=','test_companies.id')
         ->get();
 
-        return $hoge;
+        return $data;
+    }
+
+    // test_companiesテーブルからデータを取得
+    public function getCompanyList() {
+        $company_name = DB::table('test_companies')->get();
+
+        return $company_name;
     }
 
 }

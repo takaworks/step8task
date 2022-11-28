@@ -19,7 +19,7 @@
 
         <main>
             <div class="show1">
-                <form action="home.blade.php" method="post">
+                <form action="" method="post">
                     <h2>商品検索</h2>
                     <ul>
                         <li>
@@ -31,7 +31,7 @@
                             企業名<br>
                             <select class="inputsize" name="input_company_name">
                                 <option hidden>-- 選択してください --</option>
-                                @foreach ($data as $val)
+                                @foreach ($companylist as $val)
                                     <option>{{$val->company_name}}</option>
                                 @endforeach
                             </select>
@@ -60,7 +60,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $val)
+                        @foreach ($productlist as $val)
                         <tr>
                             <td>{{$val->id}}</td>
                             <td><img src="{{$val->img_path}}"></td>
