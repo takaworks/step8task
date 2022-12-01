@@ -19,5 +19,6 @@
 Auth::routes();
 
 Route::get('/home', 'TestUserController@index')->name('home');
+Route::post('/home', 'TestUserController@index')->name('home');
 Route::get('/', 'TestZZZController@showList')->name('zzz');
 Route::get('/logout', 'Auth\LoginController@loggedOut');

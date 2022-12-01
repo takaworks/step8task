@@ -13,14 +13,15 @@
                 ログアウト
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
+                @csrf
             </form>
         </header>
 
         <main>
             <div class="show1">
-                <form action="" method="post">
-                    <h2>商品検索</h2>
+                <h2>商品検索</h2>
+                <form action="{{ url('/home') }}" method="post">
+                    {{ csrf_field() }}
                     <ul>
                         <li>
                             商品名<br>
@@ -30,9 +31,9 @@
                         <li>
                             企業名<br>
                             <select class="inputsize" name="input_company_name">
-                                <option hidden>-- 選択してください --</option>
-                                @foreach ($companylist as $val)
-                                    <option>{{$val->company_name}}</option>
+                                <option></option>
+                                @foreach ($companylist as $val1)
+                                    <option>{{$val1->company_name}}</option>
                                 @endforeach
                             </select>
                         </li>
@@ -50,7 +51,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>イメージパス</th>
+                            <th>画像</th>
                             <th>商品名</th>
                             <th>価格</th>
                             <th>在庫数</th>

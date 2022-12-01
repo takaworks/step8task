@@ -49,12 +49,31 @@ class TestUser extends Authenticatable
                 'test_products.price',
                 'test_products.stock',
                 'test_companies.company_name as company_name')
-
         ->join('test_companies','test_products.company_id','=','test_companies.id')
         ->get();
 
         return $data;
     }
+
+        // test_productsテーブルからデータを取得
+        public function searchProductList($product_name,$company_name) {
+
+            // productsテーブルとcompaniesを連結
+            // productsのcompany_idをcompaniesのcompany_nameとする
+            $data = DB::table('test_products')
+            ->select('test_products.id',
+                    'test_products.img_path',
+                    'test_products.product_name',
+                    'test_products.price',
+                    'test_products.stock',
+                    'test_companies.company_name as company_name')
+            ->where('test_products.product_name', 'LIKE', '%'. $product_name .'%')
+            ->where('company_name', 'LIKE', '%'. $company_name .'%')
+            ->join('test_companies','test_products.company_id','=','test_companies.id')
+            ->get();
+    
+            return $data;
+        }
 
     // test_companiesテーブルからデータを取得
     public function getCompanyList() {
