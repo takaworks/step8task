@@ -1,36 +1,42 @@
-<!DOCTYPE html> 
-<html lang="ja">  
-    <head>
-        <meta charset="UTF-8"> 
-        <title>商品情報一覧</title>
-        <link href="{{ asset('/css/home.css') }}" rel="stylesheet" >
-    </head> 
 
-    <body>
+@extends('layouts.app')
+
+@section('title', '商品一覧')
+
+@section('content')
         <header>
-            <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();">
-                ログアウト
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <!-- <a href="{{ url('/home') }}">Home</a> -->
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+            <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
-            </form>
+            </form> -->
         </header>
 
         <main>
-            <div class="show1">
+            <div class="Home">
                 <h2>商品検索</h2>
                 <form action="{{ url('/home') }}" method="post">
                     {{ csrf_field() }}
                     <ul>
                         <li>
                             商品名<br>
-                            <input type="text" class="inputsize" name="input_product_name">
+                            <input type="text" class="Home__size--input" name="txtFproduct">
                         </li>
 
                         <li>
                             企業名<br>
-                            <select class="inputsize" name="input_company_name">
+                            <select class="Home__size--input" name="drpFcompany">
                                 <option></option>
                                 @foreach ($companylist as $val1)
                                     <option>{{$val1->company_name}}</option>
@@ -39,15 +45,15 @@
                         </li>
 
                         <li>
-                            <button type="submit" class="inputsize" name="btn_search_product">検索</button>
+                            <button type="submit" class="Home__size--input">検索</button>
                         </li>
                     </ul>
                 </form> 
             </div>
 
-            <div class="show1">
+            <div class="Home">
                 <h2>商品一覧</h2>
-                <table class="show3">
+                <table>
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -70,21 +76,23 @@
                             <td>{{$val->stock}}</td>
                             <td>{{$val->company_name}}</td>
                             <td>
-                                <button type="button" class="" name="btn_show_detail">詳細表示</button>
+                                <button type="button" name="btnFdetail">詳細表示</button>
                             </td>
                             <td>
-                                <button type="button" class="alart_cfg" name="btn_detele_productdata">削除</button>
+                                <form action="home/" method="post" onsubmit="deleteAlert()">
+                                    {{ csrf_field() }}
+                                    <input type='submit' value="削除" class="Home__color--alart" name="btnFdeleteproduct">
+                                </form>
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
+            
+                <button id="btn" type="button" class="Home__size--full" name="btnFaddproduct">商品追加</button>
 
-            <div>
-                <button type="button" class="show2" name="btn_add_product">商品追加</button>
-            </div>
-
+            
         </main>
     </body>
-</html>
+    @endsection

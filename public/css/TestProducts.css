@@ -5,7 +5,7 @@
     --tboxh : 30px;     /* テキストボックス高さ */
 }
 
-.show1{
+.Home {
     margin: var(--spacevalue);
     padding: var(--spacevalue);
     background-color: rgb(220, 220, 220);
@@ -13,23 +13,19 @@
     border-radius: 10px;
 }
 
-.show2 {
+.Home__size--full {
     width: 100%;
     height: 50px;
     margin-top: 30px;
 }
 
-h2{
-    margin-bottom: 0px;
-}
-
-.inputsize {
+.Home__size--input {
     width: var(--tboxw);
     height: var(--tboxh);
     box-sizing:border-box;
 }
 
-.alart_cfg {
+.Home__color--alart {
     color:red;
 }
 
@@ -42,6 +38,10 @@ li{
     list-style: none;
     padding-top: var(--spacevalue);
     padding-right: var(--spacevalue);
+}
+
+h2{
+    margin-bottom: 0px;
 }
 
 table {

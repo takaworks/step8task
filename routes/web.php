@@ -18,7 +18,12 @@
 
 Auth::routes();
 
-Route::get('/home', 'TestUserController@index')->name('home');
-Route::post('/home', 'TestUserController@index')->name('home');
+Route::get('/home', 'TestProductsController@index')->name('home');
+Route::post('/home', 'TestProductsController@index')->name('home');
 Route::get('/', 'TestZZZController@showList')->name('zzz');
 Route::get('/logout', 'Auth\LoginController@loggedOut');
+
+Route::group(['prefix' => '/home'], function () {
+    
+    Route::post('home/$id/', 'TestProductsController@data_delete'); // 削除
+});
