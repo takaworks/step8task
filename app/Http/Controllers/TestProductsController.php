@@ -7,8 +7,7 @@ use \App\Models\TestProducts;
 
 class TestProductsController extends Controller
 {
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         // フォーム入力からデータ受け取り
         $product_name = $request -> txtFproduct;
         $company_name = $request -> drpFcompany;
@@ -36,12 +35,14 @@ class TestProductsController extends Controller
         ]);
     }
 
-    // public function data_delete($id) {
-    //     //削除対象レコードを検索
-    //     $user = \App\Student::find($id);
-    //     //削除
-    //     $user->delete();
-    //     //リダイレクト
-    //     return redirect()->to('student/list');
-    // }
+    public function showAddProduct() {
+
+        $hoge2 = new TestProducts();
+        $companylist = $hoge2 -> getCompanyList();
+
+        return view('addproduct') -> with ([
+            'companylist' => $companylist
+        ]);
+    }
+
 }

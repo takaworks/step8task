@@ -4,7 +4,7 @@ function deleteAlert() {
     if( confirm("aaa") ) {
         alert('はいが押されました');
     } else {
-        alert('いいえが押されました');
+        return false;
     }
 };
 

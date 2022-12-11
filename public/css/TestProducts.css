@@ -9,14 +9,15 @@
     margin: var(--spacevalue);
     padding: var(--spacevalue);
     background-color: rgb(220, 220, 220);
-    padding-top: 0px;
+    padding-top: 20px;
     border-radius: 10px;
 }
 
 .Home__size--full {
-    width: 100%;
+    width: 90%;
     height: 50px;
-    margin-top: 30px;
+    display: block;
+    margin: 20px auto;
 }
 
 .Home__size--input {

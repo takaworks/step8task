@@ -51,8 +51,13 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                                <a class="nav-link" href="{{ url('/home') }}">商品一覧</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/home/add_product') }}">商品追加</a>
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

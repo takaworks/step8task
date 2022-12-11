@@ -5,7 +5,7 @@
 
 @section('content')
         <header>
-            @if (Route::has('login'))
+            <!-- @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
 
@@ -17,7 +17,7 @@
                         @endif
                     @endauth
                 </div>
-            @endif
+            @endif -->
             <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form> -->
@@ -35,7 +35,7 @@
                         </li>
 
                         <li>
-                            企業名<br>
+                            メーカー名<br>
                             <select class="Home__size--input" name="drpFcompany">
                                 <option></option>
                                 @foreach ($companylist as $val1)
@@ -79,7 +79,7 @@
                                 <button type="button" name="btnFdetail">詳細表示</button>
                             </td>
                             <td>
-                                <form action="home/" method="post" onsubmit="deleteAlert()">
+                                <form action="home/{{$val->id}}" method="post">
                                     {{ csrf_field() }}
                                     <input type='submit' value="削除" class="Home__color--alart" name="btnFdeleteproduct">
                                 </form>
@@ -90,7 +90,7 @@
                 </table>
             </div>
             
-                <button id="btn" type="button" class="Home__size--full" name="btnFaddproduct">商品追加</button>
+                <button onclick="location.href='home/add_product'"  type="button" class="Home__size--full" name="btnFaddproduct">商品追加</button>
 
             
         </main>

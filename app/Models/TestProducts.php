@@ -51,4 +51,12 @@ class TestProducts extends Model
     
             return $company_name;
         }
+
+        // public function delete($id){
+        //     $data = DB::table('test_products')
+        //     ->destroy($id);
+
+        //     return redirect() -> to('home');
+
+        // }
 }
