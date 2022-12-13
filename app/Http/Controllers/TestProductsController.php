@@ -40,8 +40,12 @@ class TestProductsController extends Controller {
         $company_list = $this->getCompanylist();
         $id = $request->id;
 
+        $hoge = new TestProducts();
+        $product_detail = $hoge->getProductDetailDB($id);
+
         return view('detail',compact('id')) -> with ([
             'company_list' => $company_list,
+            'product_detail' => $product_detail
         ]);
     }
 

@@ -53,7 +53,7 @@
                             <td>{{ $val->id }}</td>
                             <td><img src="{{ $val->img_path }}"></td>
                             <td>{{ $val->product_name }}</td>
-                            <td>{{ $val->price }}</td>
+                            <td>{{ $val->price }}円</td>
                             <td>{{ $val->stock }}</td>
                             <td>{{ $val->company_name }}</td>
                             <td>

@@ -14,6 +14,8 @@
                             <th>詳細</th>
                         </tr>
                     </thead>
+
+                    @foreach ($product_detail as $val)
                     <tbody>
                         <tr>
                             <td>商品情報ID</td>
@@ -21,29 +23,30 @@
                         </tr>
                         <tr>
                             <td>商品画像</td>
-                            <td></td>
+                            <td><img src="{{ $val->img_path }}"></td>
                         </tr>
                         <tr>
                             <td>商品名</td>
-                            <td></td>
+                            <td>{{ $val->product_name }}</td>
                         </tr>
                         <tr>
                             <td>メーカー名</td>
-                            <td></td>
+                            <td>{{ $val->company_name}}</td>
                         </tr>
                         <tr>
                             <td>価格</td>
-                            <td></td>
+                            <td>{{ $val->price }}円</td>
                         </tr>
                         <tr>
                             <td>在庫数</td>
-                            <td></td>
+                            <td>{{ $val->stock }}</td>
                         </tr>
                         <tr>
                             <td>コメント</td>
-                            <td></td>
+                            <td>{{ $val->comment }}</td>
                         </tr>
                     </tbody>
+                    @endforeach
                 </table>
             </div>
             

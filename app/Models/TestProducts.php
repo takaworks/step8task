@@ -33,9 +33,21 @@ class TestProducts extends Model
         // test_companiesテーブルからデータを取得 //
         //////////////////////////////////////////
         public function getCompanyListDB() {
-            $company_name = DB::table('test_companies')->get();
+            $data = DB::table('test_companies')->get();
     
-            return $company_name;
+            return $data;
+        }
+
+        /////////////////////////////////////
+        // 詳細ボタンから必要情報のデータ取得 //
+        /////////////////////////////////////
+        public function getProductDetailDB($id){
+            $data = DB::table('test_products')
+            ->where('test_products.id', $id)
+            ->join('test_companies','test_products.company_id','=','test_companies.id')
+            ->get();
+
+            return $data;
         }
 
         ////////////////////////////////////////
