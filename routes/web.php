@@ -20,5 +20,5 @@ Route::post('/home', 'TestProductsController@index')->name('home');
 Route::get('/', 'TestZZZController@showList')->name('zzz');
 Route::get('/logout', 'Auth\LoginController@loggedOut');
 
-Route::get('/home/add_product', 'TestProductsController@showAddProduct')->name('add_product');
-Route::post('/home/add_product', 'TestValidateController@validateAddProduct')->name('add_product');
+Route::get('/home/add_product', 'TestProductsController@showCompanylist')->name('add_product');
+Route::post('/home/add_product', 'TestProductsController@addProduct')->name('add_product');

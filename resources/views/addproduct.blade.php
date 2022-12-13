@@ -5,22 +5,7 @@
 
 @section('content')
         <header>
-            <!-- @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
 
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif -->
-            <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form> -->
         </header>
 
         <main>
@@ -34,39 +19,39 @@
                 </div>
             @endif
 
-            <div class="Home">
+            <div class="Base">
                 <h2>商品検索</h2>
-                <form action="{{ url('/home/add_product') }}" method="post">
+                <form action="{{ url('/home/add_product') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <ul>
                         <li>
                             商品名<br>
-                            <input type="text" class="Home__size--input" name="txtFaddproduct" value="{{old('txtFaddproduct')}}">
+                            <input type="text" class="Base__size--input" name="txtFaddproduct" value="{{old('txtFaddproduct')}}">
                         </li>
 
                         <li>
                             メーカー名<br>
-                            <select class="Home__size--input" name="drpFaddcompany" >
+                            <select class="Base__size--input" name="drpFaddcompany" >
                                 <option></option>
                                 @foreach ($companylist as $val1)
-                                    <option>{{$val1->company_name}}</option>
+                                    <option value= {{$val1->id}}>{{$val1->company_name}}</option>
                                 @endforeach
                             </select>
                         </li>
 
                         <li>
                             価格<br>
-                            <input type="text" class="Home__size--input" name="txtFaddcost" value="{{old('txtFaddcost')}}">
+                            <input type="text" class="Base__size--input" name="txtFaddprice" value="{{old('txtFaddprice')}}">
                         </li>
 
                         <li>
                             在庫数<br>
-                            <input type="text" class="Home__size--input" name="txtFaddstock" value="{{old('txtFaddstock')}}">
+                            <input type="text" class="Base__size--input" name="txtFaddstock" value="{{old('txtFaddstock')}}">
                         </li>
 
                         <li>
                             コメント<br>
-                            <textarea class="Home__size--input" rows="3" cols="40" name="txtFaddcomment"></textarea>
+                            <textarea class="Base__size--input" rows="3" cols="40" name="txtFaddcomment"></textarea>
                         </li>
 
                         <li>
@@ -75,13 +60,13 @@
                         </li>
 
                         <li>
-                            <button type="submit">追加</button>
+                            <button type="submit" class="Base__size--input">追加</button>
                         </li>
                     </ul>
                 </form> 
             </div>
 
-            <button onclick="location.href='/step7task/public/home/'"  type="button" class="Home__size--full" name="btnFaddproduct">戻る</button>
+            <button onclick="location.href='/step7task/public/home/'"  type="button" class="Base__size--full" name="btnFaddproduct">戻る</button>
         </main>
     </body>
     @endsection

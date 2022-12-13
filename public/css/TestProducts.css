@@ -5,7 +5,7 @@
     --tboxh : 30px;     /* テキストボックス高さ */
 }
 
-.Home {
+.Base {
     margin: var(--spacevalue);
     padding: var(--spacevalue);
     background-color: rgb(220, 220, 220);
@@ -13,20 +13,20 @@
     border-radius: 10px;
 }
 
-.Home__size--full {
+.Base__size--full {
     width: 90%;
     height: 50px;
     display: block;
     margin: 20px auto;
 }
 
-.Home__size--input {
+.Base__size--input {
     width: var(--tboxw);
     height: var(--tboxh);
     box-sizing:border-box;
 }
 
-.Home__color--alart {
+.Base__color--alart {
     color:red;
 }
 

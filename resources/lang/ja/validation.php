@@ -149,7 +149,7 @@ return [
     'attributes' => [
         'txtFaddproduct' => '商品名',
         'drpFaddcompany' => 'メーカー名',
-        'txtFaddcost' => '価格',
+        'txtFaddprice' => '価格',
         'txtFaddstock' => '在庫数',
     ],
 
