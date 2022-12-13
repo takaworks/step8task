@@ -4,10 +4,6 @@
 @section('title', '商品一覧')
 
 @section('content')
-        <header>
-
-        </header>
-
         <main>
             <div class="Base">
                 <h2>商品検索</h2>
@@ -23,8 +19,8 @@
                             メーカー名<br>
                             <select class="Base__size--input" name="drpFcompany">
                                 <option></option>
-                                @foreach ($companylist as $val1)
-                                    <option>{{$val1->company_name}}</option>
+                                @foreach ($company_list as $val1)
+                                    <option>{{ $val1->company_name }}</option>
                                 @endforeach
                             </select>
                         </li>
@@ -52,19 +48,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($productlist as $val)
+                        @foreach ($product_list as $val)
                         <tr>
-                            <td>{{$val->id}}</td>
-                            <td><img src="{{$val->img_path}}"></td>
-                            <td>{{$val->product_name}}</td>
-                            <td>{{$val->price}}</td>
-                            <td>{{$val->stock}}</td>
-                            <td>{{$val->company_name}}</td>
+                            <td>{{ $val->id }}</td>
+                            <td><img src="{{ $val->img_path }}"></td>
+                            <td>{{ $val->product_name }}</td>
+                            <td>{{ $val->price }}</td>
+                            <td>{{ $val->stock }}</td>
+                            <td>{{ $val->company_name }}</td>
                             <td>
-                                <button type="button" name="btnFdetail">詳細表示</button>
+                                <button onclick="location.href='home/detail?id={{ $val->id }}'"  type="button" name="btnFdetail">詳細</button>
                             </td>
                             <td>
-                                <form action="home/{{$val->id}}" method="post">
+                                <form action="home/{{ $val->id }}" method="post">
                                     {{ csrf_field() }}
                                     <input type='submit' value="削除" class="Base__color--alart" name="btnFdeleteproduct">
                                 </form>
@@ -75,8 +71,9 @@
                 </table>
             </div>
             
+            <div>
                 <button onclick="location.href='home/add_product'"  type="button" class="Base__size--full" name="btnFaddproduct">商品追加</button>
-
+            </div>
             
         </main>
     </body>
