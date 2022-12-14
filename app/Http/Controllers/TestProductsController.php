@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\TestProducts;
 use BadFunctionCallException;
-use Validator; 
 
 class TestProductsController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     // 商品一覧ページ表示
     public function showIndexPage(Request $request) {
@@ -71,13 +75,8 @@ class TestProductsController extends Controller {
     // 商品追加を押した時の処理 //
     ////////////////////////////
     public function addProduct(Request $request) {
-        //バリデーションルール
-        $validator = Validator::make($request->all(), [
-            'txtFaddproduct' => 'required',
-            'drpFaddcompany' => 'required',
-            'txtFaddprice' => 'required|numeric',
-            'txtFaddstock' => 'required|integer',
-        ]);
+        $aaa = app()->make('App\Http\Controllers\TestValidateController');
+        $validator = $aaa->validateAddProduct($request);
 
         if ($validator->fails()) {
         //バリデーションエラー有り
