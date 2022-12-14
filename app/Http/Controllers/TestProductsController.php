@@ -33,7 +33,7 @@ class TestProductsController extends Controller {
 
     // 商品追加ページ表示
     public function showAddProductPage() {
-        return view('addproduct') -> with ([
+        return view('add') -> with ([
             'company_list' => $this->getCompanylist()
         ]);
     }
@@ -48,6 +48,21 @@ class TestProductsController extends Controller {
         $product_detail = $hoge->getProductDetailDB($id);
 
         return view('detail',compact('id')) -> with ([
+            'company_list' => $company_list,
+            'product_detail' => $product_detail
+        ]);
+    }
+
+    // 商品情報編集表示
+    public function showEditPage(Request $request)
+    {
+        $company_list = $this->getCompanylist();
+        $id = $request->id;
+
+        $hoge = new TestProducts();
+        $product_detail = $hoge->getProductDetailDB($id);
+
+        return view('edit',compact('id')) -> with ([
             'company_list' => $company_list,
             'product_detail' => $product_detail
         ]);
@@ -80,7 +95,7 @@ class TestProductsController extends Controller {
 
         if ($validator->fails()) {
         //バリデーションエラー有り
-            return redirect('/home/add_product')
+            return redirect('/home/add')
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -103,7 +118,7 @@ class TestProductsController extends Controller {
                 $hoge -> insertProductListDB($request, "http://localhost/step7task/storage/app/noimage.png");
             }
 
-            return view('addproduct') -> with ([
+            return view('add') -> with ([
                 'company_list' => $company_list
             ]);
         }

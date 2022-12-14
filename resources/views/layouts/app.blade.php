@@ -55,7 +55,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home/add_product') }}">商品追加</a>
+                                <a class="nav-link" href="{{ url('/home/add') }}">商品追加</a>
                             </li>
 
                             <li class="nav-item">

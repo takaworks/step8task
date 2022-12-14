@@ -17,7 +17,7 @@
 
             <div class="Base">
                 <h2>商品追加</h2>
-                <form action="{{ url('/home/add_product') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('/home/add') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <ul>
                         <li>
@@ -29,8 +29,8 @@
                             メーカー名<br>
                             <select class="Base__size--input" name="drpFaddcompany" >
                                 <option></option>
-                                @foreach ($company_list as $val1)
-                                    <option value={{ $val1->id }}> {{ $val1->company_name }}</option>
+                                @foreach ($company_list as $comp)
+                                    <option value={{ $comp->id }}> {{ $comp->company_name }}</option>
                                 @endforeach
                             </select>
                         </li>

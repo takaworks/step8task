@@ -72,7 +72,7 @@
             </div>
             
             <div>
-                <button onclick="location.href='home/add_product'"  type="button" class="Base__size--full" name="btnFaddproduct">商品追加</button>
+                <button onclick="location.href='home/add'"  type="button" class="Base__size--full" name="btnFadd">商品追加</button>
             </div>
             
         </main>

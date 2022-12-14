@@ -1,12 +1,12 @@
 
 @extends('layouts.app')
 
-@section('title', '商品詳細')
+@section('title', '商品情報詳細')
 
 @section('content')
         <main>
             <div class="Base">
-                <h2>商品詳細</h2>
+                <h2>商品情報詳細</h2>
                 <table>
                     <thead>
                         <tr>
@@ -19,7 +19,7 @@
                     <tbody>
                         <tr>
                             <td>商品情報ID</td>
-                            <td>{{$id}}</td>
+                            <td>{{ $id }}</td>
                         </tr>
                         <tr>
                             <td>商品画像</td>
@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <td>メーカー名</td>
-                            <td>{{ $val->company_name}}</td>
+                            <td>{{ $val->company_name }}</td>
                         </tr>
                         <tr>
                             <td>価格</td>
@@ -48,6 +48,10 @@
                     </tbody>
                     @endforeach
                 </table>
+
+                <div>
+                    <button onclick="location.href='edit?id={{ $id }}'"  type="button" class="Base__size--full" name="btnFedit">編集</button>
+                </div>
             </div>
             
             <div>

@@ -20,7 +20,8 @@ Route::post('/home', 'TestProductsController@showIndexPage');
 Route::get('/', 'TestZZZController@showList');
 Route::get('/logout', 'Auth\LoginController@loggedOut');
 
-Route::get('/home/add_product', 'TestProductsController@showAddProductPage')->name('admin.add_product.show');
-Route::post('/home/add_product', 'TestProductsController@addProduct')->name('admin.add_product.add');
+Route::get('/home/add/', 'TestProductsController@showAddProductPage')->name('admin.add.show');
+Route::post('/home/add/', 'TestProductsController@addProduct')->name('admin.add.add');
 
 Route::get('/home/detail/', 'TestProductsController@showDetailPage')->name('admin.detail.show');
+Route::get('/home/edit/', 'TestProductsController@showEditPage')->name('admin.edit.show');
