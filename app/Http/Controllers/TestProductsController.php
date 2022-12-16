@@ -124,4 +124,40 @@ class TestProductsController extends Controller {
         }
     }
 
+    /////////////////////////////////
+    // 商品編集の更新を押した時の処理 //
+    /////////////////////////////////
+    public function editProduct(Request $request) {
+        $aaa = app()->make('App\Http\Controllers\TestValidateController');
+        $validator = $aaa->validateEditProduct($request);
+
+        //クエリ文字列にあるidの値 ?id=xxx
+        $id = $request->id;
+        
+        if ($validator->fails()) {
+            return redirect('/home/edit?id='.$id)
+            ->withErrors($validator)
+            ->withInput();
+        } else {
+            $file = $request->file('imgFeditimage');
+
+            //フォームに入力されたデータをDBに挿入
+            $hoge = new TestProducts();
+            $img_path = $hoge->getimgDB($request->txtFeditproductid);
+
+            //ファイルアップロードされた場合、storage\appに画像を保存
+            if (isset($file)) {
+                $file_name = $file->getClientOriginalName();
+                $file->storeAs('', $file_name);
+
+                $file_name = 'http://localhost/step7task/storage/app/'.$file_name;
+                $hoge -> editProductDB($request, $file_name);
+            } else {
+                $hoge -> editProductDB($request, $img_path->img_path);
+            }
+
+            return redirect('/home/edit?id='.$id);
+
+        }
+    }
 }

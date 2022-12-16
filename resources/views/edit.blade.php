@@ -17,7 +17,7 @@
 
             <div class="Base">
                 <h2>商品情報編集</h2>
-                <form action="{{ url('/home/add') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ url('/home/edit?id='.$id) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <ul>
                         @foreach ($product_detail as $val)
@@ -60,7 +60,7 @@
 
                         <li>
                             商品画像<br>
-                            <input type="file" name="imgFaddimage" accept="image/png, image/jpeg"><br><br>
+                            <input type="file" name="imgFeditimage" accept="image/png, image/jpeg"><br><br>
                             <img src="{{ $val->img_path }}">
                         </li>
 

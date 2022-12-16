@@ -18,4 +18,16 @@ class TestValidateController extends Controller
 
         return $validator;
     }
+
+    //商品編集時のバリデーションルール
+    public function validateEditProduct($request) {
+        $validator = Validator::make($request->all(), [
+            'txtFeditproduct' => 'required',
+            'drpFeditcompany' => 'required',
+            'txtFeditprice' => 'required|numeric',
+            'txtFeditstock' => 'required|integer',
+        ]);
+
+        return $validator;
+    }
 }

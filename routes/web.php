@@ -25,3 +25,4 @@ Route::post('/home/add/', 'TestProductsController@addProduct')->name('admin.add.
 
 Route::get('/home/detail/', 'TestProductsController@showDetailPage')->name('admin.detail.show');
 Route::get('/home/edit/', 'TestProductsController@showEditPage')->name('admin.edit.show');
+Route::post('/home/edit/', 'TestProductsController@editProduct')->name('admin.edit.edit');
