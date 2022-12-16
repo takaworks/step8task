@@ -22,7 +22,7 @@ class TestProductsController extends Controller {
         $company_list = $this->getCompanylist();
         $product_list = $this->searchProductList($product_name,$company_name);
 
-        return view('home') -> with ([
+        return view('test_home') -> with ([
             'product_name' => $product_name,
             'company_name' => $company_name,
             'product_list' => $product_list,
@@ -32,7 +32,7 @@ class TestProductsController extends Controller {
 
     // 商品追加ページ表示
     public function showAddProductPage() {
-        return view('add') -> with ([
+        return view('test_add') -> with ([
             'company_list' => $this->getCompanylist()
         ]);
     }
@@ -45,7 +45,7 @@ class TestProductsController extends Controller {
         $hoge = new TestProducts();
         $product_detail = $hoge->getProductDetailDB($id);
 
-        return view('detail',compact('id')) -> with ([
+        return view('test_detail',compact('id')) -> with ([
             'company_list' => $company_list,
             'product_detail' => $product_detail
         ]);
@@ -59,7 +59,7 @@ class TestProductsController extends Controller {
         $hoge = new TestProducts();
         $product_detail = $hoge->getProductDetailDB($id);
 
-        return view('edit',compact('id')) -> with ([
+        return view('test_edit',compact('id')) -> with ([
             'company_list' => $company_list,
             'product_detail' => $product_detail
         ]);

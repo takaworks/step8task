@@ -17,7 +17,6 @@ Auth::routes();
 
 Route::get('/home', 'TestProductsController@showIndexPage')->name('admin.index.show');
 Route::post('/home', 'TestProductsController@showIndexPage');
-Route::get('/', 'TestZZZController@showList');
 Route::get('/logout', 'Auth\LoginController@loggedOut');
 
 Route::get('/home/add/', 'TestProductsController@showAddProductPage')->name('admin.add.show');
