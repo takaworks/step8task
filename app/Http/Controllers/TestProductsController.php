@@ -141,7 +141,6 @@ class TestProductsController extends Controller {
         } else {
             $file = $request->file('imgFeditimage');
 
-            //フォームに入力されたデータをDBに挿入
             $hoge = new TestProducts();
             $img_path = $hoge->getimgDB($request->txtFeditproductid);
 
