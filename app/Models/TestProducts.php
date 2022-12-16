@@ -90,4 +90,12 @@ class TestProducts extends Model
 
         return $data;
     }
+
+    public function deteleDB($id){
+        $data = DB::table('test_products')
+        ->where('test_products.id', $id)
+        ->delete();
+
+        
+    }
 }

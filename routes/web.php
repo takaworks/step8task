@@ -11,17 +11,21 @@
 |
 */
 
-
+use App\Http\Controllers\TestProductsController;
 
 Auth::routes();
 
-Route::get('/home', 'TestProductsController@showIndexPage')->name('admin.index.show');
-Route::post('/home', 'TestProductsController@showIndexPage');
 Route::get('/logout', 'Auth\LoginController@loggedOut');
 
-Route::get('/home/add/', 'TestProductsController@showAddProductPage')->name('admin.add.show');
-Route::post('/home/add/', 'TestProductsController@addProduct')->name('admin.add.add');
+Route::prefix('home')->group(function () {
+    Route::get('', 'TestProductsController@showIndexPage')->name('admin.index.show');
+    Route::post('', 'TestProductsController@showIndexPage');
 
-Route::get('/home/detail/', 'TestProductsController@showDetailPage')->name('admin.detail.show');
-Route::get('/home/edit/', 'TestProductsController@showEditPage')->name('admin.edit.show');
-Route::post('/home/edit/', 'TestProductsController@editProduct')->name('admin.edit.edit');
+    Route::get('add/', 'TestProductsController@showAddProductPage')->name('admin.addpage.show');
+    Route::post('add/', 'TestProductsController@addProduct')->name('admin.add');
+
+    Route::get('detail/{id}', 'TestProductsController@showDetailPage')->name('admin.detail');
+    Route::get('edit/{id}', 'TestProductsController@showEditPage')->name('admin.editpage.show');
+    Route::post('edit/{id}', 'TestProductsController@editProduct')->name('admin.edit');
+    Route::delete('{id}', 'TestProductsController@delete')->name('admin.delete');
+});

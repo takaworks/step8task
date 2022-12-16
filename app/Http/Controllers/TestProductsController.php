@@ -38,9 +38,8 @@ class TestProductsController extends Controller {
     }
 
     // 詳細ページ表示
-    public function showDetailPage(Request $request) {
+    public function showDetailPage($id) {
         $company_list = $this->getCompanylist();
-        $id = $request->id;
 
         $hoge = new TestProducts();
         $product_detail = $hoge->getProductDetailDB($id);
@@ -51,10 +50,9 @@ class TestProductsController extends Controller {
         ]);
     }
 
-    // 商品情報編集表示
-    public function showEditPage(Request $request) {
+    // 編集ページ表示
+    public function showEditPage($id) {
         $company_list = $this->getCompanylist();
-        $id = $request->id;
 
         $hoge = new TestProducts();
         $product_detail = $hoge->getProductDetailDB($id);
@@ -112,7 +110,7 @@ class TestProductsController extends Controller {
                 $hoge -> insertProductListDB($request, "http://localhost/step7task/storage/app/noimage.png");
             }
             
-            return redirect()->route('admin.add.show')
+            return redirect()->route('admin.addpage.show')
             ->with('successMessage','データを追加しました。');
         }
     }
@@ -124,13 +122,16 @@ class TestProductsController extends Controller {
         $aaa = app()->make('App\Http\Controllers\TestValidateController');
         $validator = $aaa->validateEditProduct($request);
 
-        //クエリ文字列にあるidの値 ?id=xxx
         $id = $request->id;
         $hoge = new TestProducts();
+
+        // メーカーリスト取得
+        $company_list = $this->getCompanylist();
+        $product_detail = $hoge->getProductDetailDB($id);
         
         if ($validator->fails()) {
         //バリデーションエラー有り
-            return redirect('/home/edit?id='.$id)
+            return redirect()->route('admin.edit',compact('id'))
             ->withErrors($validator)
             ->withInput();
         } else {
@@ -150,8 +151,20 @@ class TestProductsController extends Controller {
                 $hoge -> editProductDB($request, $img_path->img_path);
             }
 
-            return redirect('/home/edit?id='.$id)
-            ->with('successMessage','データを更新しました。');
+            return redirect()->route('admin.edit',compact('id'))->with([
+                'successMessage'=>'データを更新しました。',
+            ]);
         }
+    }
+
+    //////////////////////////////
+    // 削除ボタンを押した時の処理 //
+    //////////////////////////////
+    public function delete(Request $request) {
+        $hoge = new TestProducts();
+        $id = $request->id;
+        $hoge -> deteleDB($id);
+
+        return redirect('/home');
     }
 }

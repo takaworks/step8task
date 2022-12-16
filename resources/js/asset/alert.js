@@ -1,12 +1,7 @@
+function delete_alert() {
+    if(window.confirm('本当に削除しますか？')){
 
-function deleteAlert() {
-    window.confirm("bbb");
-};
-
-// function delete_alert(e) {
-//     if(!window.confirm('本当に削除しますか？')){
-//        window.alert('キャンセルされました'); 
-//        return false;
-//     }
-//     document.deleteform.submit();
-//  };
+    }
+    window.alert('キャンセルされました'); 
+    return false;
+ };

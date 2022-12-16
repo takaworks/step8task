@@ -51,11 +51,11 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}">商品一覧</a>
+                                <a class="nav-link" href="{{ route('admin.index.show') }}">商品一覧</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home/add') }}">商品追加</a>
+                                <a class="nav-link" href="{{ route('admin.add') }}">商品追加</a>
                             </li>
 
                             <li class="nav-item">

@@ -23,7 +23,7 @@
 
             <div class="Base">
                 <h2>商品追加</h2>
-                <form action="{{ url('/home/add') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.add') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <ul>
                         <li>

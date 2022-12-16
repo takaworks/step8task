@@ -50,7 +50,7 @@
                 </table>
 
                 <div>
-                    <button onclick="location.href='edit?id={{ $id }}'"  type="button" class="Base__size--full" name="btnFedit">編集</button>
+                    <button onclick="location.href='{{ route('admin.editpage.show', $id) }}'"  type="button" class="Base__size--full" name="btnFedit">編集</button>
                 </div>
             </div>
             
