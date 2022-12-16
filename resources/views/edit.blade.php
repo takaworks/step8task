@@ -15,6 +15,12 @@
                 </div>
             @endif
 
+            @if(session()->has('successMessage'))
+                <div class="alert alert-success">
+                    {{ session('successMessage') }}
+                </div>
+            @endif
+
             <div class="Base">
                 <h2>商品情報編集</h2>
                 <form action="{{ url('/home/edit?id='.$id) }}" method="post" enctype="multipart/form-data">

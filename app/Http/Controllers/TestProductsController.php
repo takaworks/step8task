@@ -8,8 +8,7 @@ use BadFunctionCallException;
 
 class TestProductsController extends Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('auth');
     }
 
@@ -39,8 +38,7 @@ class TestProductsController extends Controller {
     }
 
     // 詳細ページ表示
-    public function showDetailPage(Request $request)
-    {
+    public function showDetailPage(Request $request) {
         $company_list = $this->getCompanylist();
         $id = $request->id;
 
@@ -54,8 +52,7 @@ class TestProductsController extends Controller {
     }
 
     // 商品情報編集表示
-    public function showEditPage(Request $request)
-    {
+    public function showEditPage(Request $request) {
         $company_list = $this->getCompanylist();
         $id = $request->id;
 
@@ -68,18 +65,18 @@ class TestProductsController extends Controller {
         ]);
     }
 
-    //////////////////////////////////////////////////
-    // メーカー名 全取得(この関数からモデルとやり取り)  //
-    //////////////////////////////////////////////////
+    /////////////////////////////////
+    // メーカー名 全取得(使いまわし) //
+    /////////////////////////////////
     public function getCompanylist() {
         $hoge = new TestProducts();
         $company_list = $hoge -> getCompanyListDB();
         return $company_list;
     }
 
-    //////////////////////////////////////////
-    // 商品検索(この関数からモデルとやり取り)  //
-    //////////////////////////////////////////
+    //////////////////////////
+    //  商品検索(使いまわし)  //
+    //////////////////////////
     public function searchProductList($product_name, $company_name) {
         $hoge = new TestProducts();
         $product_list = $hoge -> searchProductListDB($product_name, $company_name);
@@ -100,27 +97,23 @@ class TestProductsController extends Controller {
             ->withInput();
         } else {
         //バリデーションエラー無し
-            $company_list = $this->getCompanylist();
             $file = $request->file('imgFaddimage');
+            $hoge = new TestProducts();
 
-            //ファイルアップロードされた場合、storage\appに画像を保存
+            //ファイルアップロードされた場合、対象画像のパスをdbに格納
+            //アップロード無しの場合、特定画像のパスをdbに格納
             if (isset($file)) {
                 $file_name = $file->getClientOriginalName();
                 $file->storeAs('', $file_name);
-            }
 
-            //フォームに入力されたデータをDBに挿入
-            $hoge = new TestProducts();
-            if(isset($file_name)) {
                 $file_name = 'http://localhost/step7task/storage/app/'.$file_name;
                 $hoge -> insertProductListDB($request, $file_name);
             } else {
                 $hoge -> insertProductListDB($request, "http://localhost/step7task/storage/app/noimage.png");
             }
-
-            return view('add') -> with ([
-                'company_list' => $company_list
-            ]);
+            
+            return redirect()->route('admin.add.show')
+            ->with('successMessage','データを追加しました。');
         }
     }
 
@@ -133,15 +126,17 @@ class TestProductsController extends Controller {
 
         //クエリ文字列にあるidの値 ?id=xxx
         $id = $request->id;
+        $hoge = new TestProducts();
         
         if ($validator->fails()) {
+        //バリデーションエラー有り
             return redirect('/home/edit?id='.$id)
             ->withErrors($validator)
             ->withInput();
         } else {
+        //バリデーションエラー有り
             $file = $request->file('imgFeditimage');
-
-            $hoge = new TestProducts();
+            
             $img_path = $hoge->getimgDB($request->txtFeditproductid);
 
             //ファイルアップロードされた場合、storage\appに画像を保存
@@ -155,8 +150,8 @@ class TestProductsController extends Controller {
                 $hoge -> editProductDB($request, $img_path->img_path);
             }
 
-            return redirect('/home/edit?id='.$id);
-
+            return redirect('/home/edit?id='.$id)
+            ->with('successMessage','データを更新しました。');
         }
     }
 }
