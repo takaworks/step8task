@@ -104,10 +104,10 @@ class TestProductsController extends Controller {
                 $file_name = $file->getClientOriginalName();
                 $file->storeAs('', $file_name);
 
-                $file_name = 'http://localhost/step7task/storage/app/'.$file_name;
+                $file_name = 'http://localhost/step8task/storage/app/'.$file_name;
                 $hoge -> insertProductListDB($request, $file_name);
             } else {
-                $hoge -> insertProductListDB($request, "http://localhost/step7task/storage/app/noimage.png");
+                $hoge -> insertProductListDB($request, "http://localhost/step8task/storage/app/noimage.png");
             }
             
             return redirect()->route('admin.addpage.show')
@@ -145,7 +145,7 @@ class TestProductsController extends Controller {
                 $file_name = $file->getClientOriginalName();
                 $file->storeAs('', $file_name);
 
-                $file_name = 'http://localhost/step7task/storage/app/'.$file_name;
+                $file_name = 'http://localhost/step8task/storage/app/'.$file_name;
                 $hoge -> editProductDB($request, $file_name);
             } else {
                 $hoge -> editProductDB($request, $img_path->img_path);
