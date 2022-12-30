@@ -5,3 +5,5 @@ function delete_alert() {
     window.alert('キャンセルされました'); 
     return false;
  };
+
+

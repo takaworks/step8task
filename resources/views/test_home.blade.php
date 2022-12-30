@@ -7,34 +7,43 @@
     <main>
         <div class="Base">
             <h2>商品検索</h2>
-            <form action="{{ url('/home') }}" method="post">
-                {{ csrf_field() }}
-                <ul>
-                    <li>
-                        商品名<br>
-                        <input type="text" class="Base__size--input" name="txtFproduct">
-                    </li>
+            <ul>
+                <li>
+                    商品名<br>
+                    <input type="text" id="txtFproduct" class="Base__size--input">
+                </li>
 
-                    <li>
-                        メーカー名<br>
-                        <select class="Base__size--input" name="drpFcompany">
+                <li>
+                    メーカー名<br>
+                    <select class="Base__size--input" id="drpFcompany" >
                             <option></option>
                             @foreach ($company_list as $val1)
                                 <option>{{ $val1->company_name }}</option>
                             @endforeach
                         </select>
-                    </li>
+                </li>
 
-                    <li>
-                        <button type="submit" class="Base__size--input">検索</button>
-                    </li>
-                </ul>
-            </form> 
+                <li>
+                    価格<br>
+                    <input type="text" id="txtFpriceH" class="Base__size--inputright">円 ～ 
+                    <input type="text" id="txtFpriceL" value ="0" class="Base__size--inputright">円
+                </li>
+
+                <li>
+                    在庫数<br>
+                    <input type="text" id="txtFstockH" class="Base__size--inputright"> ～ 
+                    <input type="text" id="txtFstockL" value ="0" class="Base__size--inputright">
+                </li>
+
+                <li>
+                    <button type="button" class="Base__size--input" id="search_productjjj">検索</button>
+                </li>
+            </ul>
         </div>
 
         <div class="Base">
             <h2>商品一覧</h2>
-            <table>
+            <table id="ptable">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -48,26 +57,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($product_list as $val)
-                    <tr>
-                        <td>{{ $val->id }}</td>
-                        <td><img src="{{ $val->img_path }}"></td>
-                        <td>{{ $val->product_name }}</td>
-                        <td>{{ $val->price }}円</td>
-                        <td>{{ $val->stock }}</td>
-                        <td>{{ $val->company_name }}</td>
-                        <td>
-                            <button onclick="location.href='{{ route('admin.detail', $val->id) }}'"  type="button" name="btnFdetail">詳細</button>
-                        </td>
-                        <td>
-                            <form action="{{ route('admin.delete', $val->id) }}" method="post" onsubmit="deleteAlert();return false;">
-                                {{ csrf_field() }}
-                                @method('delete')
-                                <input type='submit' value="削除" class="Base__color--alart" name="btnFdeleteproduct">
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+
                 </tbody>
             </table>
         </div>

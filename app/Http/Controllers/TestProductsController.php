@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\TestProducts;
-use BadFunctionCallException;
+use Illuminate\Support\Facades\DB;
 
 class TestProductsController extends Controller {
 
@@ -14,19 +14,12 @@ class TestProductsController extends Controller {
 
     // 商品一覧ページ表示
     public function showIndexPage(Request $request) {
-        // フォーム入力からデータ受け取り
-        $product_name = $request -> txtFproduct;
-        $company_name = $request -> drpFcompany;
-
-        // メーカーリスト取得
+        // セレクトボックス用　メーカーリスト取得
         $company_list = $this->getCompanylist();
-        $product_list = $this->searchProductList($product_name,$company_name);
 
+        // test_home.bladeを表示
         return view('test_home') -> with ([
-            'product_name' => $product_name,
-            'company_name' => $company_name,
-            'product_list' => $product_list,
-            'company_list' => $company_list
+            'company_list' => $company_list,
         ]);
     }
 
@@ -105,9 +98,22 @@ class TestProductsController extends Controller {
                 $file->storeAs('', $file_name);
 
                 $file_name = 'http://localhost/step8task/storage/app/'.$file_name;
-                $hoge -> insertProductListDB($request, $file_name);
+
+                DB::beginTransaction();
+                try {
+                    $hoge -> insertProductListDB($request, $file_name);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
             } else {
-                $hoge -> insertProductListDB($request, "http://localhost/step8task/storage/app/noimage.png");
+                DB::beginTransaction();
+                try {
+                    $hoge -> insertProductListDB($request, "http://localhost/step8task/storage/app/noimage.png");
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
             }
             
             return redirect()->route('admin.addpage.show')
@@ -146,9 +152,22 @@ class TestProductsController extends Controller {
                 $file->storeAs('', $file_name);
 
                 $file_name = 'http://localhost/step8task/storage/app/'.$file_name;
-                $hoge -> editProductDB($request, $file_name);
+                
+                DB::beginTransaction();
+                try {
+                    $hoge -> editProductDB($request, $file_name);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
             } else {
-                $hoge -> editProductDB($request, $img_path->img_path);
+                DB::beginTransaction();
+                try {
+                    $hoge -> editProductDB($request, $img_path->img_path);
+                    DB::commit();
+                } catch (\Exception $e) {
+                    DB::rollBack();
+                }
             }
 
             return redirect()->route('admin.edit',compact('id'))->with([
@@ -163,8 +182,27 @@ class TestProductsController extends Controller {
     public function delete(Request $request) {
         $hoge = new TestProducts();
         $id = $request->id;
-        $hoge -> deteleDB($id);
+        
+        DB::beginTransaction();
+        try {
+            $hoge -> deteleDB($id);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
 
         return redirect('/home');
     }
+
+    public function searchAjax(Request $request) {
+        $hoge = new TestProducts();
+        //モデルに入力されたデータ渡して検索してもらう
+        $product_list = $hoge->getProductDetailDBAjax($request->pname,$request->cname,$request->priceH,$request->priceL,$request->stockH,$request->stockL);
+        
+        $data = [
+            'pname' => $product_list,
+        ];
+        return response()->json($data);
+    }
+
 }

@@ -11,7 +11,6 @@
 |
 */
 
-use App\Http\Controllers\TestProductsController;
 
 Auth::routes();
 
@@ -20,6 +19,7 @@ Route::get('/logout', 'Auth\LoginController@loggedOut');
 Route::prefix('home')->group(function () {
     Route::get('', 'TestProductsController@showIndexPage')->name('admin.index.show');
     Route::post('', 'TestProductsController@showIndexPage');
+    Route::post('ajaxsearch', 'TestProductsController@searchAjax')->name('admin.index.ajax');
 
     Route::get('add/', 'TestProductsController@showAddProductPage')->name('admin.addpage.show');
     Route::post('add/', 'TestProductsController@addProduct')->name('admin.add');

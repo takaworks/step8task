@@ -25,6 +25,12 @@
     height: var(--tboxh);
     box-sizing:border-box;
 }
+.Base__size--inputright {
+    width: calc(var(--tboxw)/2);
+    height: var(--tboxh);
+    box-sizing:border-box;
+    text-align: right;
+}
 
 .Base__color--alart {
     color:red;
