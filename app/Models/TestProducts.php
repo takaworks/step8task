@@ -7,27 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class TestProducts extends Model
 {
-    /////////////////////////////////////////////////////////////////
-    // testproductsテーブルから検索データをもとにデータ取得(部分一致) //
-    /////////////////////////////////////////////////////////////////
-    public function searchProductListDB($product_name,$company_name) {
-        // productsテーブルとcompaniesを連結
-        // productsのcompany_idをcompaniesのcompany_nameとする
-        $data = DB::table('testproducts')
-        ->select('testproducts.id',
-                'testproducts.img_path',
-                'testproducts.product_name',
-                'testproducts.price',
-                'testproducts.stock',
-                'test_companies.company_name as company_name')
-        ->where('testproducts.product_name', 'LIKE', '%'. $product_name .'%')
-        ->where('company_name', 'LIKE', '%'. $company_name .'%')
-        ->join('test_companies','testproducts.company_id','=','test_companies.id')
-        ->get();
-
-        return $data;
-    }
-
     //////////////////////////////////////////
     // test_companiesテーブルからデータを取得 //
     //////////////////////////////////////////
@@ -101,10 +80,10 @@ class TestProducts extends Model
         ->delete();
     }
 
-    //////////////////////////////////
-    // テーブルのデータを検索(Ajax用) //
-    //////////////////////////////////
-    public function getProductDetailDBAjax($pname,$cname,$priceH,$priceL,$stockH,$stockL){
+    //////////////////////////
+    // テーブルのデータを検索 //
+    //////////////////////////
+    public function getProductListDB($pname,$cname,$priceH,$priceL,$stockH,$stockL){
 
         if ($priceH=="") {
             $priceH=1000;

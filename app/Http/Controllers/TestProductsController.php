@@ -65,15 +65,6 @@ class TestProductsController extends Controller {
         return $company_list;
     }
 
-    //////////////////////////
-    //  商品検索(使いまわし)  //
-    //////////////////////////
-    public function searchProductList($product_name, $company_name) {
-        $hoge = new TestProducts();
-        $product_list = $hoge -> searchProductListDB($product_name, $company_name);
-        return $product_list;
-    }
-
     ////////////////////////////
     // 商品追加を押した時の処理 //
     ////////////////////////////
@@ -176,28 +167,13 @@ class TestProductsController extends Controller {
         }
     }
 
-    //////////////////////////////
-    // 削除ボタンを押した時の処理 //
-    //////////////////////////////
-    public function delete(Request $request) {
-        $hoge = new TestProducts();
-        $id = $request->id;
-        
-        DB::beginTransaction();
-        try {
-            $hoge -> deteleDB($id);
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-        }
-
-        return redirect('/home');
-    }
-
+    /////////////////////////////
+    //     データ検索(Ajax)     //
+    /////////////////////////////
     public function searchAjax(Request $request) {
         $hoge = new TestProducts();
         //モデルに入力されたデータ渡して検索してもらう
-        $product_list = $hoge->getProductDetailDBAjax($request->pname,$request->cname,$request->priceH,$request->priceL,$request->stockH,$request->stockL);
+        $product_list = $hoge->getProductListDB($request->pname,$request->cname,$request->priceH,$request->priceL,$request->stockH,$request->stockL);
         
         $data = [
             'pname' => $product_list,
@@ -205,4 +181,18 @@ class TestProductsController extends Controller {
         return response()->json($data);
     }
 
+    /////////////////////////////
+    //     データ削除(Ajax)     //
+    /////////////////////////////
+    public function deleteAjax(Request $request) {
+        $hoge = new TestProducts();
+        DB::beginTransaction();
+        try {
+            $hoge -> deteleDB($request->id);
+            DB::commit();
+            return response()->json();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+    }
 }

@@ -1,15 +1,22 @@
 const detailurl = "http://localhost/step8task/public/home/detail/";
-const homeurl = "http://localhost/step8task/public/home/";
+const homeurl = "http://localhost/step8task/public/home";
+const regex = /[^0-9]/g;
 
 // ページ読み込み時に実行したい処理
 window.onload = function(){
-    //ページ読み込み時商品一覧取得するため、検索イベントを強制
-    document.querySelector("#search_product").click();
+    var url = location.href
+
+    if(url == homeurl){
+        //ページ読み込み時商品一覧取得するため、検索イベントを強制発火
+        document.querySelector("#search_product").click();
+    }
 }
 
 // ajax全て完了後に行う。(空のデーブルだとtablesorterが上手く機能しないため)
 $(document).ajaxComplete(function() {
     $("#ptable").tablesorter();
+
+    deleteData();
 });
 
 // 通信に関連する設定のデフォルト値
@@ -28,7 +35,9 @@ $("#ptable").tablesorter({
     }
 });
 
-// 一覧表示にて検索ボタンを押された時
+/////////////////////////////////////
+// 一覧表示にて検索ボタンを押された時 //
+/////////////////////////////////////
 $("#search_product").on("click", function() {
     let pname =$("#txtFproduct").val(); // 商品名
     let cname =$("#drpFcompany").val(); // メーカー名
@@ -51,9 +60,6 @@ $("#search_product").on("click", function() {
         dataType: 'json',
         timeout: 3000
     }).done(function(data){
-        //alert("通信に成功しました");
-        console.log(data.pname);
-
         // $.each(data.pname[0],function(index,value){
         //     console.log(index + ':' + value);
         // })
@@ -94,11 +100,7 @@ $("#search_product").on("click", function() {
                 str += "</td>";
 
                 str += "<td>";
-                str += "<form action=\"" + homeurl +data.pname[i].id + "\" method=\"post\" onsubmit=\"deleteAlert();return false;\">";
-                str += "<input type=\"hidden\" name=\"_token\" value=\"Vi7kPT70dko8qXxcwgl7cZYjD0wZDmjiSvYRg9E8\">";
-                str += "<input type=\"hidden\" name=\"_method\" value=\"delete\">";
-                str += "<input type=\'submit\' value=\"削除\" class=\"Base__color--alart\" name=\"btnFdeleteproduct\">";
-                str += "</form>"
+                str += "<button type=\'button\' class=\"Base__color--alart btnFdeleteproduct\" id=\"btnFdeleteproduct" + data.pname[i].id + "\">削除";
                 str += "</td>";
             str += "</tr>";
         }
@@ -113,11 +115,38 @@ $("#search_product").on("click", function() {
     });
 });
 
-function deleteAlert() {
-    if( confirm("本当に削除しますか？") ) {
-        alert('削除しました。');
-        document.deleteform.submit();
-    } else {
-        return false;
-    }
-};
+/////////////////////////
+//    商品データ削除    //
+/////////////////////////
+function deleteData(){
+    $(".btnFdeleteproduct").on("click", function() {
+        if( confirm("本当に削除しますか？") ) {
+            // 押されたボタンのID名を取得
+            let str = $(this).attr('id');
+            // 取得したID名から数字だけ取得
+            let id = str.replace(regex,"");
+
+            $.ajax({
+                type: 'POST',
+                url: '/step8task/public/home/' + id,   // route
+                data: {
+                    'id' : id,
+                    '_method': 'DELETE',
+                },
+                dataType: 'json',
+                timeout: 3000,
+                context: this,                          //これによりコールバック関数でも$thisが使えるようになる
+            }).done(function(data){
+                console.log(id);
+
+                //押下されたボタンの行を削除(表示上)
+                $(this).closest("tr").remove();
+            }).fail(function(){
+                alert("通信に失敗しました");
+            });
+
+        } else {
+            return false;
+        }
+    });
+}
