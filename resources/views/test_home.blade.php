@@ -36,14 +36,14 @@
                 </li>
 
                 <li>
-                    <button type="button" class="Base__size--input" id="search_productjjj">検索</button>
+                    <button type="button" class="Base__size--input" id="search_product">検索</button>
                 </li>
             </ul>
         </div>
 
         <div class="Base">
             <h2>商品一覧</h2>
-            <table id="ptable">
+            <table id="ptable" class="tablesorter">
                 <thead>
                     <tr>
                         <th>ID</th>

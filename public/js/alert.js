@@ -4,16 +4,32 @@ const homeurl = "http://localhost/step8task/public/home/";
 // ページ読み込み時に実行したい処理
 window.onload = function(){
     //ページ読み込み時商品一覧取得するため、検索イベントを強制
-    document.querySelector("#search_productjjj").click();
+    document.querySelector("#search_product").click();
 }
 
+// ajax全て完了後に行う。(空のデーブルだとtablesorterが上手く機能しないため)
+$(document).ajaxComplete(function() {
+    $("#ptable").tablesorter();
+});
+
+// 通信に関連する設定のデフォルト値
 $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 
-$("#search_productjjj").on("click", function() {
+$("#ptable").tablesorter({
+    headers: {
+        1: {sorter:false},
+        2: {sorter:false},
+        6: {sorter:false},
+        7: {sorter:false},
+    }
+});
+
+// 一覧表示にて検索ボタンを押された時
+$("#search_product").on("click", function() {
     let pname =$("#txtFproduct").val(); // 商品名
     let cname =$("#drpFcompany").val(); // メーカー名
     let priceH =$("#txtFpriceH").val(); // 価格上限
@@ -42,8 +58,10 @@ $("#search_productjjj").on("click", function() {
         //     console.log(index + ':' + value);
         // })
         
+        // 一度ヘッダー以外削除
         $('#ptable').find('td').remove();
 
+        // tbodyを一撃で書き換えるためstrに設定
         let str;
         for(let i = 0; i < data.pname.length; i++) {
             str += "<tr>";
@@ -84,7 +102,11 @@ $("#search_productjjj").on("click", function() {
                 str += "</td>";
             str += "</tr>";
         }
+        // strを実際にHTMLへ反映
         $("#ptable").append(str);
+
+        //行を追加削除した後にtablesorter更新(これ行わないとtablesorter機能しない)
+        $("#ptable").trigger("update");
 
     }).fail(function(){
         alert("通信に失敗しました");
