@@ -27,5 +27,5 @@ Route::prefix('home')->group(function () {
     Route::get('detail/{id}', 'TestProductsController@showDetailPage')->name('admin.detail');
     Route::get('edit/{id}', 'TestProductsController@showEditPage')->name('admin.editpage.show');
     Route::post('edit/{id}', 'TestProductsController@editProduct')->name('admin.edit');
-    Route::delete('{id}', 'TestProductsController@deleteAjax')->name('admin.delete');
+    Route::delete('{id}', 'TestProductsController@deleteProductAjax')->name('admin.delete');
 });

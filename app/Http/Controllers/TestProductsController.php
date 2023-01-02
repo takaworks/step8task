@@ -80,7 +80,8 @@ class TestProductsController extends Controller {
         } else {
         //バリデーションエラー無し
             $file = $request->file('imgFaddimage');
-            $hoge = new TestProducts();
+            $hoge1 = new TestProducts();
+            $hoge2 = app()->make('App\Http\Controllers\TestSaleController');
 
             //ファイルアップロードされた場合、対象画像のパスをdbに格納
             //アップロード無しの場合、特定画像のパスをdbに格納
@@ -92,7 +93,9 @@ class TestProductsController extends Controller {
 
                 DB::beginTransaction();
                 try {
-                    $hoge -> insertProductListDB($request, $file_name);
+                    $id = $hoge1 -> insertProductListDB($request, $file_name);
+                    $hoge2 -> insertSale($id);
+
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
@@ -100,7 +103,9 @@ class TestProductsController extends Controller {
             } else {
                 DB::beginTransaction();
                 try {
-                    $hoge -> insertProductListDB($request, "http://localhost/step8task/storage/app/noimage.png");
+                    $id = $hoge1 -> insertProductListDB($request, "http://localhost/step8task/storage/app/noimage.png");
+                    $hoge2 -> insertSale($id);
+
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
@@ -184,11 +189,14 @@ class TestProductsController extends Controller {
     /////////////////////////////
     //     データ削除(Ajax)     //
     /////////////////////////////
-    public function deleteAjax(Request $request) {
-        $hoge = new TestProducts();
+    public function deleteProductAjax(Request $request) {
+        $hoge1 = new TestProducts();
         DB::beginTransaction();
         try {
-            $hoge -> deteleDB($request->id);
+            $hoge1 -> deteleProductDB($request->id);
+            $hoge2 = app()->make('App\Http\Controllers\TestSaleController');
+            $hoge2 -> deteleSale($request->id);
+
             DB::commit();
             return response()->json();
         } catch (\Exception $e) {

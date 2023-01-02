@@ -28,7 +28,7 @@ class TestProducts extends Model
     }
 
     ////////////////////////////////////////
-    // test_companiesテーブルにデータを挿入 //
+    // testproductsテーブルにデータを挿入 //
     ////////////////////////////////////////
     public function insertProductListDB($data,$filename) {
         DB::table('testproducts')->insert([
@@ -41,6 +41,9 @@ class TestProducts extends Model
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ]);
+
+        $id = DB::getPdo()->lastInsertId();
+        return $id;
     }
 
     ////////////////////////////////////////
@@ -74,7 +77,7 @@ class TestProducts extends Model
     //////////////////////////////
     //  DBから指定のデータを削除  //
     //////////////////////////////
-    public function deteleDB($id) {
+    public function deteleProductDB($id) {
         $data = DB::table('testproducts')
         ->where('testproducts.id', $id)
         ->delete();
