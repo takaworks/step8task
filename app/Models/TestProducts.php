@@ -63,10 +63,10 @@ class TestProducts extends Model
         ]);
     }
 
-    ///////////////////////////////////////
-    //  DBから今登録されている画像URL取得  //
-    ///////////////////////////////////////
-    public function getimgDB($id) {
+    ////////////////////////////////
+    //  DBから指定IDのデータを取得  //
+    ////////////////////////////////
+    public function getProductDataDB($id) {
         $data = DB::table('testproducts')
         ->where('testproducts.id', $id)
         ->first();
@@ -81,6 +81,15 @@ class TestProducts extends Model
         $data = DB::table('testproducts')
         ->where('testproducts.id', $id)
         ->delete();
+    }
+
+    //////////////////////////////
+    //  stockから在庫を1つ減らす  //
+    //////////////////////////////
+    public function decrementStockDB($id) {
+        DB::table('testproducts')
+        ->where('testproducts.id', $id)
+        ->decrement('stock');
     }
 
     //////////////////////////

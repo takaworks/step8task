@@ -33,9 +33,7 @@ class TestProductsController extends Controller {
     // 詳細ページ表示
     public function showDetailPage($id) {
         $company_list = $this->getCompanylist();
-
-        $hoge = new TestProducts();
-        $product_detail = $hoge->getProductDetailDB($id);
+        $product_detail = $this->getProductDetail($id);
 
         return view('test_detail',compact('id')) -> with ([
             'company_list' => $company_list,
@@ -46,9 +44,7 @@ class TestProductsController extends Controller {
     // 編集ページ表示
     public function showEditPage($id) {
         $company_list = $this->getCompanylist();
-
-        $hoge = new TestProducts();
-        $product_detail = $hoge->getProductDetailDB($id);
+        $product_detail = $this->getProductDetail($id);
 
         return view('test_edit',compact('id')) -> with ([
             'company_list' => $company_list,
@@ -63,6 +59,39 @@ class TestProductsController extends Controller {
         $hoge = new TestProducts();
         $company_list = $hoge -> getCompanyListDB();
         return $company_list;
+    }
+
+    ////////////////////////////
+    // 商品詳細取得(使いまわし) //
+    ////////////////////////////
+    public function getProductDetail($id) {
+        $hoge = new TestProducts();
+        $data = $hoge -> getProductDetailDB($id);
+        return $data;
+    }
+
+    ////////////////////////////
+    // 商品情報取得(使いまわし) //
+    ////////////////////////////
+    public function getProductData($id) {
+        $hoge = new TestProducts();
+        $data = $hoge -> getProductDataDB($id);
+        return $data;
+    }
+
+    ///////////////
+    //  在庫減少  //
+    ///////////////
+    public function decreaseStock($id) {
+        DB::beginTransaction();
+        try {
+            $hoge = new TestProducts();
+            $hoge -> decrementStockDB($id);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
     }
 
     ////////////////////////////
@@ -129,7 +158,6 @@ class TestProductsController extends Controller {
 
         // メーカーリスト取得
         $company_list = $this->getCompanylist();
-        $product_detail = $hoge->getProductDetailDB($id);
         
         if ($validator->fails()) {
         //バリデーションエラー有り
@@ -139,8 +167,8 @@ class TestProductsController extends Controller {
         } else {
         //バリデーションエラー有り
             $file = $request->file('imgFeditimage');
-            
-            $img_path = $hoge->getimgDB($request->txtFeditproductid);
+            //$pdata = $hoge->getProductDataDB($request->txtFeditproductid);
+            $pdata = $this->getProductData($request->txtFeditproductid);
 
             //ファイルアップロードされた場合、storage\appに画像を保存
             if (isset($file)) {
@@ -159,7 +187,7 @@ class TestProductsController extends Controller {
             } else {
                 DB::beginTransaction();
                 try {
-                    $hoge -> editProductDB($request, $img_path->img_path);
+                    $hoge -> editProductDB($request, $pdata->img_path);
                     DB::commit();
                 } catch (\Exception $e) {
                     DB::rollBack();
