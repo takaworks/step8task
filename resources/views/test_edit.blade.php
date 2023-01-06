@@ -15,6 +15,7 @@
                 </div>
             @endif
 
+            <!-- フラッシュメッセージ -->
             @if(session()->has('successMessage'))
                 <div class="alert alert-success">
                     {{ session('successMessage') }}

@@ -56,7 +56,7 @@ class TestSaleController extends Controller
                 $pdata = $aaa->getProductData($request->id);    // 減算後の在庫本数取得
                 $current_stock = $pdata->stock;
 
-                //testproductsテーブルのストック数をちゃんと減算できたらてtestsaleテーブルの購入数を1つ増やす
+                //testproductsテーブルのストック数をちゃんと減算できたらtestsaleテーブルの購入数を1つ増やす
                 if($previous_stock <> $current_stock) {
                     DB::beginTransaction();
                     try {

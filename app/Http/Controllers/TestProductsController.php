@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\TestProducts;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Config;
 
 class TestProductsController extends Controller {
 
@@ -141,8 +142,11 @@ class TestProductsController extends Controller {
                 }
             }
             
+            // configフォルダのmassage.phpからフラッシュメッセージデータを取得
+            $msg = Config::get('message.$flashmsg.successAddData');
+
             return redirect()->route('admin.addpage.show')
-            ->with('successMessage','データを追加しました。');
+            ->with('successMessage', $msg);
         }
     }
 
@@ -194,8 +198,11 @@ class TestProductsController extends Controller {
                 }
             }
 
+            // configフォルダのmassage.phpからフラッシュメッセージデータを取得
+            $msg = Config::get('message.$flashmsg.successEditData');
+
             return redirect()->route('admin.edit',compact('id'))->with([
-                'successMessage'=>'データを更新しました。',
+                'successMessage' => $msg,
             ]);
         }
     }
